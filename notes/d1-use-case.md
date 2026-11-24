@@ -1,24 +1,24 @@
-# D1 用例拆解卡：Reactive 适合解决什么问题
+# D1 用例拆解卡：个人钱包大额转出监控
 
-> 任务 20 打卡笔记｜项目：Reactive Sentinel（链上钱包哨兵）——待确认
+> 任务 20 打卡笔记｜学习用例（不是最终项目）
 
 ## 1. 监听哪条链、哪个合约的什么事件？
 
 - **源链**：Ethereum Sepolia（chainId `11155111`）
-- **合约**：`SentinelToken`（我们自己部署的测试 ERC-20 代币）
+- **合约**：一个 ERC-20 测试代币（例如 SENT）
 - **事件**：`Transfer(address indexed from, address indexed to, uint256 value)`
 - **过滤条件**：`topic0 = keccak256("Transfer(address,address,uint256)")`，`topic1 = 被保护钱包地址`，即只监听「从我的钱包转出」的转账
 
 ## 2. 满足什么条件时触发？
 
-- 单笔转出金额 `value >= threshold`（例如 100 SENT）
+- 单笔转出金额 `value >= threshold`，本练习取 **100 SENT**
 - 只处理指定代币、指定钱包的转出；其他事件直接 `return` 过滤
 - MVP 加一个 `remaining` 次数上限，防止测试币被耗尽
 
 ## 3. 在哪条链做什么动作？
 
 - **目标链**：Ethereum Sepolia
-- **动作**：调用 `SentinelAlert.record(...)`，记录 `token / from / to / value / originTxHash / blockNumber`，并 emit `AlertRaised` 事件
+- **动作**：调用 `AlertRecorder.record(...)`，记录 `token / from / to / value / originTxHash / blockNumber`，并 emit `AlertRaised` 事件
 - 后续可以接 Telegram / 邮件通知，或做成前端看板
 
 ## 4. 如果不用 Reactive，要怎么做？Reactive 让它简单在哪里，代价是什么？
@@ -43,8 +43,8 @@
 
 ```mermaid
 flowchart LR
-    A[Sepolia<br/>SentinelToken] -->|Transfer 事件<br/>from = 我的钱包| B[Reactive Lasna<br/>SentinelReactive.react()]
-    B -->|value >= 100 SENT| C[Sepolia<br/>SentinelAlert.record()]
+    A[Sepolia<br/>ERC-20 测试代币] -->|Transfer 事件<br/>from = 我的钱包| B[Reactive Lasna<br/>Reactive 监控合约.react()]
+    B -->|value >= 100 SENT| C[Sepolia<br/>AlertRecorder.record()]
     C --> D[AlertRaised 事件<br/>链上可查]
 ```
 
