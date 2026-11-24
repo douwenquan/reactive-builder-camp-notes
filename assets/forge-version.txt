@@ -1,0 +1,11 @@
+$ forge --version
+forge Version: 1.4.2-stable
+Commit SHA: 828441d243f552f82c5a89bdc818e52bdd57b26b
+Build Timestamp: 2025-10-18T08:19:39.947006000Z (1760775579)
+Build Profile: maxperf
+
+$ cast --version
+cast Version: 1.4.2-stable
+Commit SHA: 828441d243f552f82c5a89bdc818e52bdd57b26b
+Build Timestamp: 2025-10-18T08:19:39.947006000Z (1760775579)
+Build Profile: maxperf
