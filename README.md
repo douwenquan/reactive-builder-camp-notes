@@ -4,9 +4,9 @@
 
 ## 目录
 
-- `notes/d0-environment.md` — D0 环境准备（任务 10）
-- `notes/d1-use-case.md` — D1 用例拆解卡（任务 20）
-- `notes/d2-fees.md` — D2 读懂费用（任务 30）
+- `notes/environment-setup.md` — 环境准备（任务 10）
+- `notes/use-case-card.md` — 用例拆解卡（任务 20）
+- `notes/fees.md` — 读懂费用（任务 30）
 - `assets/` — 截图等证据
 
 ## 学习主题
